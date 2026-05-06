@@ -29,7 +29,7 @@ This is the **template**. It must be account-agnostic.
 | `state/.keep` | `state/<account-name>.tfstate.encrypted` |
 | Documentation, runbooks | Per-account decisions in CHANGELOG / ADRs |
 
-If you're tempted to commit something like `account_id = "911526871324"` here, stop. That goes in the instance repo.
+If you're tempted to commit something like `account_id = "123456789012"` (a real 12-digit AWS account ID) here, stop. That goes in the instance repo.
 
 ### Adding a resource
 

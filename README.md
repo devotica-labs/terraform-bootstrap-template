@@ -13,7 +13,7 @@ flowchart LR
     TPL["devotica-labs/terraform-bootstrap-template<br/>(this repo — public template)"]
 
     subgraph Inst["Per-account instances (private)"]
-        SBX["devotica-labs/<br/>devotica-sandbox-bootstrap<br/>(Devotica Sandbox 911526871324)"]
+        SBX["devotica-labs/<br/>devotica-sandbox-bootstrap<br/>(Devotica Sandbox account)"]
         CA["clientA/terraform-bootstrap<br/>(Client A dev/stg/prod accounts)"]
         CB["clientB/terraform-bootstrap<br/>(Client B prod)"]
     end
@@ -65,7 +65,7 @@ flowchart LR
 
 | AWS account | Instance repo lives in | Owner |
 |---|---|---|
-| Devotica Sandbox `911526871324` | `devotica-labs/devotica-sandbox-bootstrap` | Devotica |
+| Devotica Sandbox | `devotica-labs/devotica-sandbox-bootstrap` | Devotica |
 | Client A dev/stg/prod | `clientA/terraform-bootstrap` (separate accounts in same repo via tfvars) | Client A (Devotica is collaborator during engagement) |
 | Client B prod | `clientB/terraform-bootstrap` | Client B |
 
