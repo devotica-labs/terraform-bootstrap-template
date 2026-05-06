@@ -26,7 +26,7 @@ allowed_repos = [
 # ----- Optional inputs (sensible defaults) -----
 
 dr_region                       = "ap-southeast-1" # null disables CRR (not recommended in prod)
-name_prefix                     = "devotica"       # change to "otpless", "protectt", etc. for client accounts
+name_prefix                     = "devotica"       # change to "clientA", "clientB", etc. for client accounts
 kms_key_deletion_window         = 30
 state_lifecycle_noncurrent_days = 90
 

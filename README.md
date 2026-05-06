@@ -14,8 +14,8 @@ flowchart LR
 
     subgraph Inst["Per-account instances (private)"]
         SBX["devotica-labs/<br/>devotica-sandbox-bootstrap<br/>(Devotica Sandbox 911526871324)"]
-        OTP["otpless/terraform-bootstrap<br/>(OTPless dev/stg/prod accounts)"]
-        PRT["protectt-ai/terraform-bootstrap<br/>(Protectt prod)"]
+        CA["clientA/terraform-bootstrap<br/>(Client A dev/stg/prod accounts)"]
+        CB["clientB/terraform-bootstrap<br/>(Client B prod)"]
     end
 
     subgraph AWS["What each instance creates"]
@@ -32,14 +32,14 @@ flowchart LR
     SBX --> KMS
     SBX --> OIDC
     SBX --> CT
-    OTP -.-> AWS
-    PRT -.-> AWS
+    CA -.-> AWS
+    CB -.-> AWS
 
     classDef tpl fill:#1F4E79,color:#fff,stroke:#1F4E79;
     classDef inst fill:#eaf1f8,color:#1a1a1a,stroke:#2E75B6;
     classDef aws fill:#fef3c7,color:#1a1a1a,stroke:#854d0e;
     class TPL tpl;
-    class SBX,OTP,PRT inst;
+    class SBX,CA,CB inst;
     class S3,DDB,KMS,OIDC,CT aws;
 ```
 
@@ -66,8 +66,8 @@ flowchart LR
 | AWS account | Instance repo lives in | Owner |
 |---|---|---|
 | Devotica Sandbox `911526871324` | `devotica-labs/devotica-sandbox-bootstrap` | Devotica |
-| OTPless dev/stg/prod | `otpless/terraform-bootstrap` (separate accounts in same repo via tfvars) | OTPless (Devotica is collaborator during engagement) |
-| Protectt prod | `protectt-ai/terraform-bootstrap` | Protectt |
+| Client A dev/stg/prod | `clientA/terraform-bootstrap` (separate accounts in same repo via tfvars) | Client A (Devotica is collaborator during engagement) |
+| Client B prod | `clientB/terraform-bootstrap` | Client B |
 
 **State files for client accounts live in client GitHub orgs**, not Devotica's. End-of-engagement handoff is a non-event — the client already owns the data.
 

@@ -20,7 +20,7 @@ variable "dr_region" {
 }
 
 variable "github_org" {
-  description = "GitHub org that hosts repos allowed to assume the OIDC role (e.g. 'devotica-labs' or 'otpless')."
+  description = "GitHub org that hosts repos allowed to assume the OIDC role (e.g. 'devotica-labs' or 'clientA')."
   type        = string
 }
 
@@ -48,7 +48,7 @@ variable "allowed_repos" {
 }
 
 variable "name_prefix" {
-  description = "Prefix used in resource names. Default 'devotica' is fine for Devotica-owned accounts; clients should override (e.g. 'otpless')."
+  description = "Prefix used in resource names. Default 'devotica' is fine for Devotica-owned accounts; clients should override (e.g. 'clientA')."
   type        = string
   default     = "devotica"
   validation {
