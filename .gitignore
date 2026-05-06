@@ -1,0 +1,27 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfplan
+*.tfplan.binary
+
+# State — never commit unencrypted state files
+state/*.tfstate
+state/*.tfstate.backup
+state/*.local.hcl
+!state/.keep
+!state/*.tfstate.encrypted   # encrypted state files ARE meant to be committed
+
+# Local env
+.env
+.envrc
+
+# Push helper (per-fork, not for the template)
+push.sh
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

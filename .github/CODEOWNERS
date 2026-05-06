@@ -1,0 +1,3 @@
+* @devotica-labs/cloud-leads
+/main.tf @devotica-labs/cloud-leads @devotica-labs/security
+/variables.tf @devotica-labs/cloud-leads @devotica-labs/security

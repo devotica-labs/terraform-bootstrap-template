@@ -1,0 +1,5 @@
+This directory holds per-account encrypted state files after the first
+`terraform apply`. See README "First run" for the encrypt-and-commit procedure.
+
+The unencrypted *.tfstate files are .gitignored. Only *.tfstate.encrypted should
+ever be committed.

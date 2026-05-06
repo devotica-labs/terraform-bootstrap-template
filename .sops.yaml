@@ -1,0 +1,14 @@
+# sops configuration — encrypt bootstrap state files at rest.
+#
+# After the first `terraform apply`, the bootstrap-created KMS key exists. We
+# then re-key state encryption to use it. Until that key exists, fall back to
+# the placeholder age recipient below (replace before first run).
+
+creation_rules:
+  # Per-account state files
+  - path_regex: state/.*\.tfstate$
+    # Replace with one of:
+    #   * AWS KMS:  kms: arn:aws:kms:ap-south-1:<account-id>:alias/devotica-terraform-state
+    #   * age:      age: age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    # Generate an age key with: age-keygen -o ~/.config/sops/age/keys.txt
+    age: REPLACE_WITH_AGE_PUBLIC_KEY_OR_USE_KMS_LINE_ABOVE
