@@ -1,0 +1,25 @@
+# release-please cuts versioned tags of the template repo itself, driven by
+# Conventional Commit messages on main. Instance repos pin a specific tag
+# (e.g. v0.3.0) when they're generated from this template — so versioned
+# releases let them migrate at a controlled pace.
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release_please:
+    name: release-please
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: rp
+        with:
+          release-type: terraform-module
+          token: ${{ secrets.GITHUB_TOKEN }}
