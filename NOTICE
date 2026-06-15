@@ -1,0 +1,21 @@
+terraform-bootstrap-template
+Copyright 2026 Devotica Labs
+
+This product includes software developed at Devotica Labs
+(https://github.com/devotica-labs).
+
+================================================================================
+
+This repo is the template for the per-account bootstrap stack — it provisions
+the foundational AWS resources every Devotica project repo needs in order to
+operate: state bucket, lock table, KMS key, OIDC provider, IAM role, audit
+trail.
+
+Each AWS account gets its own *instance* repo generated from this template
+(e.g. devotica-labs/devotica-sandbox-bootstrap, clientA/terraform-bootstrap).
+The template repo contains code only — no state, no account-specific data.
+
+================================================================================
+
+Third-party components and their licenses are documented in CHANGELOG.md and
+inline where used.
