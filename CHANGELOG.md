@@ -8,6 +8,14 @@ Releases are cut automatically by `release-please` on merge to `main`,
 driven by Conventional Commit prefixes (`feat:` → minor, `fix:`/`docs:`/`chore:` → patch,
 `feat!:` or `BREAKING CHANGE:` footer → major).
 
+## [1.0.1](https://github.com/devotica-labs/terraform-bootstrap-template/compare/v1.0.0...v1.0.1) (2026-06-16)
+
+
+### Bug Fixes
+
+* **ci:** remove unused data source + switch gitleaks to OSS binary ([#6](https://github.com/devotica-labs/terraform-bootstrap-template/issues/6)) ([af7cfd2](https://github.com/devotica-labs/terraform-bootstrap-template/commit/af7cfd2efd4ae7b07f20319ad6d9973d26f7d7ac))
+* **ci:** remove unused data source + switch gitleaks to OSS binary ([#7](https://github.com/devotica-labs/terraform-bootstrap-template/issues/7)) ([d8414d9](https://github.com/devotica-labs/terraform-bootstrap-template/commit/d8414d92a990a390333dba6b0d68bce5143f1bcb))
+
 ## [Unreleased]
 
 ### Added
