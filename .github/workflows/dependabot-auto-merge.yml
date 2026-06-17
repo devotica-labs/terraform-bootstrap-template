@@ -1,0 +1,71 @@
+# Auto-approve + auto-merge Dependabot PRs once CI passes.
+#
+# Why this exists: branch protection on the central repos requires 1 review,
+# and the sole maintainer can't self-approve — so Dependabot's CI-version
+# bumps would otherwise sit unmergeable. This approves them as devotica-bot
+# and enables auto-merge so they land without manual triage.
+#
+# Security model: triggered by pull_request_target (so Actions secrets are
+# available on Dependabot PRs), but this job NEVER checks out or executes the
+# PR's code — it only calls the GitHub API with the trusted PR URL. There is
+# no injection surface.
+#
+# Fail-soft by design:
+#   - On UNPROTECTED repos: no review is required, so auto-merge works
+#     immediately with the built-in token; the approval step is a harmless
+#     no-op even with no devotica-bot token configured.
+#   - On PROTECTED repos: the approval (which satisfies the 1-review rule)
+#     needs a NON-GITHUB_TOKEN credential, because GitHub ignores approvals
+#     submitted with the built-in token. Provide one to activate:
+#
+# ACTIVATION (protected repos): create a devotica-bot fine-grained PAT or
+# GitHub App installation token with Contents:write + Pull-requests:write,
+# and store it as the Actions secret BOT_REVIEW_TOKEN. Until then the PR
+# simply waits for a review (no harm done).
+#
+# Auto-merge policy: github-actions bumps at any semver (CI is the gate);
+# terraform/pip only at patch or minor. Major terraform/pip bumps (e.g. a
+# provider major) are left for a human.
+
+name: Dependabot auto-merge
+
+on: pull_request_target
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@v2
+
+      - name: Approve (devotica-bot; skipped if no token)
+        if: >
+          steps.meta.outputs.package-ecosystem == 'github_actions' ||
+          steps.meta.outputs.update-type == 'version-update:semver-patch' ||
+          steps.meta.outputs.update-type == 'version-update:semver-minor'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.BOT_REVIEW_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          if [ -n "${GH_TOKEN:-}" ]; then
+            gh pr review --approve "$PR_URL"
+          else
+            echo "::notice::BOT_REVIEW_TOKEN not set — skipping approval (fine on unprotected repos)."
+          fi
+
+      - name: Enable auto-merge
+        if: >
+          steps.meta.outputs.package-ecosystem == 'github_actions' ||
+          steps.meta.outputs.update-type == 'version-update:semver-patch' ||
+          steps.meta.outputs.update-type == 'version-update:semver-minor'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge --auto --squash "$PR_URL"
